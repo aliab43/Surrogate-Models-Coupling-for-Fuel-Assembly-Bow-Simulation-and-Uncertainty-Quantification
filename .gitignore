@@ -1,0 +1,14 @@
+# macOS / Python
+.DS_Store
+__pycache__/
+*.pyc
+
+# Large generated artifacts / data
+*.npy
+*.npz
+
+# If those .C files are generated (kriging exports), ignore them
+FSI_Coupling3/TGaussianProcess_Hydraulic/*.C
+
+# Optionally ignore whole GP training folders if they are huge
+FSI_Coupling3/TGaussianProcess_*/

@@ -1,0 +1,269 @@
+=============================================
+    Fuel Assemblies insertion 
+=============================================
+               |
+               v
+Mechanical loop converged in 0.44 seconds
+Mechanical loop Converged
+=============================================
+    Pump Activation 
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+               |
+               v
+Mechanical loop converged in 0.44 seconds
+Mechanical loop Converged
+Convergence achieved!
+=============================================
+    Irradiation Step : 1 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop converged in 0.44 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 2 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop Iteration 8
+Mechanical loop converged in 4.00 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 3 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop Iteration 8
+Mechanical loop Iteration 9
+Mechanical loop Iteration 10
+Mechanical loop converged in 4.89 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 4 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop converged in 2.23 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 5 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop converged in 2.22 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 6 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop converged in 2.23 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 7 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop converged in 3.55 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 8 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop converged in 3.11 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 9 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop Iteration 8
+Mechanical loop Iteration 9
+Mechanical loop Iteration 10
+Mechanical loop Iteration 11
+Mechanical loop Iteration 12
+Mechanical loop converged in 5.71 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 10 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop converged in 3.45 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 11 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop Iteration 8
+Mechanical loop Iteration 9
+Mechanical loop Iteration 10
+Mechanical loop Iteration 11
+Mechanical loop Iteration 12
+Mechanical loop Iteration 13
+Mechanical loop Iteration 14
+Mechanical loop Iteration 15
+Mechanical loop Iteration 16
+Mechanical loop Iteration 17
+Mechanical loop Iteration 18
+Mechanical loop Iteration 19
+Mechanical loop Iteration 20
+Mechanical loop Iteration 21
+Mechanical loop Iteration 22
+Mechanical loop Iteration 23
+Mechanical loop Iteration 24
+Mechanical loop Iteration 25
+Mechanical loop converged in 11.24 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 12 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop Iteration 8
+Mechanical loop Iteration 9
+Mechanical loop Iteration 10
+Mechanical loop Iteration 11
+Mechanical loop Iteration 12
+Mechanical loop Iteration 13
+Mechanical loop Iteration 14
+Mechanical loop Iteration 15
+Mechanical loop Iteration 16
+Mechanical loop Iteration 17
+Mechanical loop Iteration 18
+Mechanical loop Iteration 19
+Mechanical loop Iteration 20
+Mechanical loop Iteration 21
+Mechanical loop converged in 9.43 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 13 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3
+Mechanical loop Iteration 4
+Mechanical loop Iteration 5
+Mechanical loop Iteration 6
+Mechanical loop Iteration 7
+Mechanical loop Iteration 8
+Mechanical loop Iteration 9
+Mechanical loop Iteration 10
+Mechanical loop Iteration 11
+Mechanical loop Iteration 12
+Mechanical loop Iteration 13
+Mechanical loop Iteration 14
+Mechanical loop Iteration 15
+Mechanical loop Iteration 16
+Mechanical loop Iteration 17
+Mechanical loop converged in 7.75 seconds
+Mechanical loop Converged
+Coupling convergence achieved!
+=============================================
+    Irradiation Step : 14 month(s)   
+=============================================
+               |
+               v
+--- FSI Coupling iteration 1 ---
+Mechanical loop Iteration 1
+Mechanical loop Iteration 2
+Mechanical loop Iteration 3

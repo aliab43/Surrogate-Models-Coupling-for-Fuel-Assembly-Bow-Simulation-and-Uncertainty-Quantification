@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "sobol_generateSample.C": "cpp",
+        "UserFunctions.C": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp"
+    }
+}
