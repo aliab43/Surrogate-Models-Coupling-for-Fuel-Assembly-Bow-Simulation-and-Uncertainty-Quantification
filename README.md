@@ -93,17 +93,6 @@ Main outputs:
 - `FSI_Coupling3/displacement_irradiation.txt`
 - `FSI_Coupling3/displacement_after_irradiation.txt`
 
-## Uncertainty Quantification
-
-The repository includes scripts for uncertainty propagation and plotting:
-
-- `FSI_Coupling3/uncertaintyProp.py`
-- `FSI_Coupling3/PlotUncertaintySurrogate.py`
-- `FSI_Coupling3/plot_initial_uncertainty.py`
-- `FSI_Coupling3/post_traitement.py`
-
-These scripts perform Monte Carlo sampling and generate plots for uncertainty bands and distributions.
-
 ## Benchmark Validation
 
 A dedicated analytical benchmark validates the coupled GP uncertainty method:
