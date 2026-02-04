@@ -75,6 +75,10 @@ The simulation expects DOE and surrogate data already in the repository:
 
 If you regenerate DOE or surrogates, update these folders before running the cycle.
 
+## Data Availability Note
+
+The full fuel‑assembly case requires large covariance matrices and `.npy` datasets that are too heavy to store in this Git repository. If the cycle fails to run due to missing files, it is because those GP surrogate assets are not included here. This repository is intended to present the code, workflow, and development approach; the large surrogate data must be provided separately.
+
 ## Running the Cycle
 
 From the project root:
@@ -107,6 +111,8 @@ A dedicated analytical benchmark validates the coupled GP uncertainty method:
 - `FSI_Coupling3/Analetical_Benchmark_Coupled_GP_Validation.py`
 
 See `README_BENCHMARK.md` for full details.
+
+The analytical benchmark runs out‑of‑the‑box and does not require the large surrogate data files.
 
 ## Repository Structure
 

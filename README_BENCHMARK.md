@@ -6,6 +6,8 @@ The benchmark is implemented in:
 
 `FSI_Coupling3/Analetical_Benchmark_Coupled_GP_Validation.py`
 
+This analytical benchmark runs out‑of‑the‑box and does not require the large `.npy` or covariance matrix assets used by the full fuel‑assembly case.
+
 ## Goal
 
 Evaluate whether an efficient approximation for coupled‑GP uncertainty (Method 3) matches the reference sequential conditional sampling (Method 2) for a fixed‑point coupled system.
@@ -75,6 +77,10 @@ This benchmark supports the main project by showing when the faster approximatio
 - A tiny numerical jitter is added for Cholesky stability.
 
 If you want to extend the benchmark to multi‑dimensional inputs or alternative kernels, start by modifying the `f1_true`, `f2_true`, and `build_surrogates` sections.
+
+## Data Availability Note
+
+The full fuel‑assembly simulation depends on large covariance matrices and `.npy` datasets for the GP surrogates, which are not included in this Git repository due to size. This repository focuses on the code and development workflow; the missing surrogate assets must be provided separately.
 
 ## Copyright
 
