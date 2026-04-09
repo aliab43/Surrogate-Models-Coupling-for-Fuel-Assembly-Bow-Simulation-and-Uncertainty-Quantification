@@ -9,6 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent
 
 
 class PenetrationDetection:
+    """Apply contact filtering to the surrogate-predicted assembly deformation."""
 
     def __init__(self,X, step):
         
@@ -18,8 +19,6 @@ class PenetrationDetection:
         self.nominal_hot_watergap = 0.002
 
         
-
-    # Function to plot assembly deformations
     def plot_assembly_deformation(self,assemblies):
         plt.rcParams['axes.linewidth'] = 2.0
         fig, ax = plt.subplots(1, 1, figsize=(15, 8))
@@ -46,7 +45,6 @@ class PenetrationDetection:
         
         # Plot each assembly
         for i, x in enumerate(assemblies):
-            # Do not reverse the displacement vector
             x_plot =  x[::-1]
             plt.xlim(self.nominal_hot_watergap - self.nominal_hot_watergap * 1.0, 15 * self.nominal_hot_watergap + self.nominal_hot_watergap * 1.0)
             plt.ylim(0., 11.)
@@ -72,8 +70,7 @@ class PenetrationDetection:
         plt.close('all')
 
 
-
-    def getCoefAfterSimulation(self, X_news):
+    def get_coefficients_after_simulation(self, X_news):
         # Initial deformation values
         c_0, s_0, w_0 = [], [], []
         for s in range(15):
@@ -93,7 +90,7 @@ class PenetrationDetection:
                 c, s, w = self.surrogate_model.callSurrogateModelCreep(X_news[i])
             else :
                 c,s,w = self.surrogate_model.callSurrogateModelday41(X_news[i])
-            # Forcer le scalaire même si c, s, w sont des tableaux ou listes
+            # Force scalar outputs even when the surrogate returns one-element arrays.
             C_i_C.append(float(np.atleast_1d(c).item()))
             C_i_S.append(float(np.atleast_1d(s).item()))
             C_i_W.append(float(np.atleast_1d(w).item()))
@@ -105,9 +102,11 @@ class PenetrationDetection:
         
         return C_i_f, S_i_f, W_i_f
 
-    
+    # Backward-compatible wrapper kept for the original scripts.
+    def getCoefAfterSimulation(self, X_news):
+        return self.get_coefficients_after_simulation(X_news)
 
-    def GramSchmidt(self):
+    def gram_schmidt(self):
         f_0 = np.array([0.0, 1.09090909e-04, 3.63636364e-04, 6.72727273e-04, 9.27272727e-04,
                         1.00000000e-03, 8.54545455e-04, 5.63636364e-04, 2.54545455e-04, 0.0])
         f_1 = np.array([0.0, 5.4e-04, 1.0e-03, 9.6e-04, 3.8e-04, -3.8e-04, -8.6e-04,
@@ -123,16 +122,19 @@ class PenetrationDetection:
         M[2] = v / np.linalg.norm(v)
         
         return M[0],M[1], M[2]   
-    
 
-    def GenerateFiltredDeformation(self): 
+    # Backward-compatible wrapper kept for the original scripts.
+    def GramSchmidt(self):
+        return self.gram_schmidt()
+
+    def generate_filtered_deformation(self): 
         # Get initial coefficients
-        C_i_0, S_i_0, W_i_0 = self.getCoefAfterSimulation(self.X)
+        C_i_0, S_i_0, W_i_0 = self.get_coefficients_after_simulation(self.X)
         C_i_j_0 = np.array(C_i_0)
         S_i_j_0 = np.array(S_i_0)
         W_i_j_0 = np.array(W_i_0)
 
-        c, s, w = self.GramSchmidt()
+        c, s, w = self.gram_schmidt()
 
         # Convergence parameters
         converged = False
@@ -216,7 +218,7 @@ class PenetrationDetection:
                 self.X[i][3:7] += damping_factor * modal_coefficients[i]
 
             # Get new coefficients for the next iteration
-            C_i_1, S_i_1, W_i_1 = self.getCoefAfterSimulation(self.X)
+            C_i_1, S_i_1, W_i_1 = self.get_coefficients_after_simulation(self.X)
             C_i_j_0 = np.array(C_i_1)
             S_i_j_0 = np.array(S_i_1)
             W_i_j_0 = np.array(W_i_1)
@@ -240,6 +242,9 @@ class PenetrationDetection:
         print("Mechanical loop Converged" if converged else "Max iterations reached without full convergence")
         return C_i_j_0, S_i_j_0, W_i_j_0
 
+    # Backward-compatible wrapper kept for the original scripts.
+    def GenerateFiltredDeformation(self):
+        return self.generate_filtered_deformation()
 
 
 

@@ -4,6 +4,8 @@ This repository focuses on the coupled mechanical-hydraulic surrogate workflow u
 
 The core idea is to replace expensive high‑fidelity codes with Gaussian‑process (GP) surrogate models, then couple them in a fixed‑point loop with contact/penetration detection and grid‑clamping evolution. The workflow produces assembly bow fields and modal coefficients for each phase and supports Monte Carlo uncertainty propagation.
 
+The repository is intentionally scoped to the main FSI workflow. The standalone analytical benchmark that used to live here has been split out to keep the project boundary clearer.
+
 ## Project Goals
 
 - Build fast surrogate models for mechanical bow and hydraulic forces.
@@ -105,20 +107,6 @@ Main outputs:
 
 These run outputs, along with temporary folders such as `FSI_Coupling3/result_of_simulations/` and `FSI_Coupling3/iteration_deformation_init/`, are generated locally and intentionally ignored by Git.
 
-## Repository Scope
-
-The repository contains:
-
-- `FSI_Coupling3/`: the main fuel-assembly coupling codebase.
-- `analytical_benchmark/`: a companion validation study for the uncertainty methodology.
-
-The analytical validation benchmark is intentionally isolated from the main FSI workflow:
-
-- `analytical_benchmark/Analytical_Benchmark_Coupled_GP_Validation.py`
-- `analytical_benchmark/README.md`
-
-This benchmark is standalone and can be published as an independent GitHub repository without depending on `FSI_Coupling3/`. If you want the strongest possible portfolio presentation, splitting it into a second repository would make the project boundaries even clearer.
-
 ## Repository Structure
 
 - `FSI_Coupling3/SimulateOneCycleDef.py`: full cycle driver.
@@ -127,7 +115,8 @@ This benchmark is standalone and can be published as an independent GitHub repos
 - `FSI_Coupling3/ClassHydraulicSurrogate.py`: hydraulic GP surrogates.
 - `FSI_Coupling3/GridClampingUpdate.py`: fluence‑based clamping evolution.
 - `FSI_Coupling3/*UQ.py`: uncertainty workflow.
-- `analytical_benchmark/`: standalone analytical validation benchmark and figures.
+- `FSI_Coupling3/cycle.py`: illustrative reactor-cycle displacement plot.
+- `FSI_Coupling3/generate_*`: DOE and preprocessing helpers.
 
 ## Requirements
 

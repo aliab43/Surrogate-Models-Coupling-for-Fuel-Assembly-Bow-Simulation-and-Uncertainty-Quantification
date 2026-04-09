@@ -1,6 +1,6 @@
 # FSI_Coupling3
 
-`FSI_Coupling3/` is the main codebase for the coupled mechanical-hydraulic surrogate simulation of fuel assembly bow over a reactor cycle.
+`FSI_Coupling3/` contains the main coupled mechanical-hydraulic surrogate workflow for fuel assembly bow simulation over a reactor cycle.
 
 ## Main Script
 
@@ -9,7 +9,7 @@
   - irradiation
   - after irradiation
 
-The script combines:
+The driver combines:
 
 - mechanical surrogate predictions for modal coefficients
 - hydraulic surrogate predictions for force fields
@@ -25,6 +25,13 @@ The script combines:
 - `post_traitement.py`: post-processing helpers and plotting.
 - `HydrauUQ.py`, `MecaUQ.py`, `uncertaintyProp.py`: uncertainty propagation utilities.
 
+## Supporting Utilities
+
+- `cycle.py`: generates the illustrative reactor-cycle displacement figure.
+- `generate_hydrau_DOE.py`: builds hydraulic DOE samples in `.dat` and `.npy` formats.
+- `generate_doe_meca.py`: builds the mechanical DOE used to train or refresh the surrogates.
+- `plot_*` scripts: standalone visualization helpers for selected study outputs.
+
 ## Versioned Files in This Folder
 
 This folder contains the source code plus a small set of lightweight reference files and figures, including:
@@ -34,7 +41,7 @@ This folder contains the source code plus a small set of lightweight reference f
 - `Matrix_M_N.root`
 - selected `.png` figures used for illustration
 
-These files help document the workflow, but they are not enough to reproduce the full production run.
+These files document the workflow, but they are not enough to reproduce the full production run on their own.
 
 ## External Assets Required for a Full Run
 
@@ -44,7 +51,7 @@ The complete coupled simulation depends on large local assets that are not versi
 - `Doe_for_hydraulic.npy`
 - kriging export directories such as `TGaussianProcess_*`
 
-Without those files, the codebase serves as a documented research software snapshot rather than a fully runnable public package.
+Without those files, this folder should be read as a documented research software snapshot rather than a fully runnable public package.
 
 ## Generated Outputs
 
@@ -59,4 +66,4 @@ The following files and folders are generated locally during runs and are intent
 - `result_of_simulations/`
 - `iteration_deformation_init/`
 
-If they appear locally, they are run artifacts, not source files.
+The main driver now writes its default text outputs relative to `FSI_Coupling3/`, so running it from the project root does not pollute the repository root with generated files.

@@ -102,7 +102,8 @@ def compute_displacements_and_save(C_i_j_0, S_i_j_0, W_i_j_0, filename="", phase
         assemblies.append(x)
     
     # Save results to a text file
-    with open(filename, "w") as f:
+    output_path = BASE_DIR / filename
+    with open(output_path, "w") as f:
         # Save modal coefficients
         for i in range(15):
             f.write(f"C_{i+1}_{phase} = {C_i_j_0[i]:.6e}\n")
@@ -138,9 +139,8 @@ def RunBeforeIrradiationCoupledSimulation(max_iterations=100, relaxation_factor=
     print("=============================================\n    Fuel Assemblies insertion \n=============================================")
     print("               |")
     print("               v")
-    #generate_deformation = PenetrationDetectionforTest(x_0,step).GenerateFiltredDeformationforTest()
-    generate_deformation = PenetrationDetection(x_0,step).GenerateFiltredDeformation()
-    c, s, w = generate_deformation
+    filtered_deformation = PenetrationDetection(x_0,step).generate_filtered_deformation()
+    c, s, w = filtered_deformation
     # Store initial modal coefficients
     c_temp, s_temp, w_temp = c.copy(), s.copy(), w.copy()
     print("=============================================\n    Pump Activation \n=============================================")
@@ -170,8 +170,8 @@ def RunBeforeIrradiationCoupledSimulation(max_iterations=100, relaxation_factor=
             x_0[i][3:7] += fh_modal_coeff[i]
         
         # Recompute filtered deformation
-        generate_deformation = PenetrationDetection(x_0, step).GenerateFiltredDeformation()
-        c, s, w = generate_deformation
+        filtered_deformation = PenetrationDetection(x_0, step).generate_filtered_deformation()
+        c, s, w = filtered_deformation
         
         # Check convergence
         delta_c = np.abs(c - c_temp)
@@ -255,8 +255,8 @@ def RunIrradiationPhase(initial_c, initial_s, initial_w, time=18, max_iterations
                 final_grid_clamping[i] = updated_grid_clamping  # Save the latest clamping value
             
             # Recompute filtered deformation
-            generate_deformation = PenetrationDetection(x_0, step=2).GenerateFiltredDeformation()
-            c_new, s_new, w_new = generate_deformation
+            filtered_deformation = PenetrationDetection(x_0, step=2).generate_filtered_deformation()
+            c_new, s_new, w_new = filtered_deformation
             
             # Check convergence
             delta_c = np.abs(c_new - c)
@@ -331,8 +331,8 @@ def RunAfterIrradiationPhase(irradiation_c, irradiation_s, irradiation_w, final_
         
         
         # Recompute filtered deformation
-        generate_deformation = PenetrationDetection(x_0, step = 3).GenerateFiltredDeformation()
-        c, s, w = generate_deformation
+        filtered_deformation = PenetrationDetection(x_0, step = 3).generate_filtered_deformation()
+        c, s, w = filtered_deformation
         
         # Check convergence
         delta_c = np.abs(c - c_temp)
@@ -351,22 +351,61 @@ def RunAfterIrradiationPhase(irradiation_c, irradiation_s, irradiation_w, final_
 
 
 
-# Step 1: Run Pre-Irradiation Phase
-initial_c, initial_s, initial_w = RunBeforeIrradiationCoupledSimulation(max_iterations=2, relaxation_factor=0.1, tolerance=2.5e-3, step=1)
+def run_default_cycle():
+    """Run the deterministic three-phase cycle described in the README."""
+    initial_c, initial_s, initial_w = RunBeforeIrradiationCoupledSimulation(
+        max_iterations=2,
+        relaxation_factor=0.1,
+        tolerance=2.5e-3,
+        step=1,
+    )
+    compute_displacements_and_save(
+        np.array(initial_c),
+        np.array(initial_s),
+        np.array(initial_w),
+        filename="displacement_before_irradiation.txt",
+        phase="b",
+    )
 
+    final_c, final_s, final_w, final_grid_clamping = RunIrradiationPhase(
+        initial_c,
+        initial_s,
+        initial_w,
+        time=18,
+        max_iterations=100,
+        relaxation_factor=0.1,
+        tolerance=2.5e-03,
+    )
+    compute_displacements_and_save(
+        np.array(final_c),
+        np.array(final_s),
+        np.array(final_w),
+        filename="displacement_irradiation.txt",
+        phase="i",
+    )
 
-compute_displacements_and_save(np.array(initial_c), np.array(initial_s), np.array(initial_w), filename="displacement_before_irradiation.txt", phase="b")
+    post_irradiation_c, post_irradiation_s, post_irradiation_w = RunAfterIrradiationPhase(
+        final_c,
+        final_s,
+        final_w,
+        final_grid_clamping,
+        max_iterations=2,
+        relaxation_factor=0.2,
+        tolerance=2.5e-03,
+    )
+    compute_displacements_and_save(
+        np.array(post_irradiation_c),
+        np.array(post_irradiation_s),
+        np.array(post_irradiation_w),
+        filename="displacement_after_irradiation.txt",
+        phase="a",
+    )
 
-# Step 2: Run Irradiation Phase
-final_c, final_s, final_w, final_grid_clamping = RunIrradiationPhase(initial_c, initial_s, initial_w, time=18, max_iterations=100, relaxation_factor=0.1, tolerance=2.5e-03)
-
-compute_displacements_and_save(np.array(final_c), np.array(final_s), np.array(final_w), filename="displacement_irradiation.txt", phase="i")
-
-
-# Step 3: Run Post-Irradiation Phase
-post_irradiation_c, post_irradiation_s, post_irradiation_w = RunAfterIrradiationPhase(final_c, final_s, final_w, final_grid_clamping, max_iterations=2, relaxation_factor=0.2, tolerance=2.5e-03)
-
-compute_displacements_and_save(np.array(post_irradiation_c), np.array(post_irradiation_s), np.array(post_irradiation_w), filename="displacement_after_irradiation.txt", phase="a")
+    return {
+        "before": (initial_c, initial_s, initial_w),
+        "irradiation": (final_c, final_s, final_w),
+        "after": (post_irradiation_c, post_irradiation_s, post_irradiation_w),
+    }
 
 
 def run_central_cycle_and_collect_inputs():
@@ -555,15 +594,6 @@ def run_one_mc_realization(args):
         "irradiation": (final_c, final_s, final_w),
         "after": (post_irradiation_c, post_irradiation_s, post_irradiation_w)
     }
-
-
-
-
-
-
-monte_carlo_cycle(n_mc=100)
-
-
-
-
+if __name__ == "__main__":
+    run_default_cycle()
 

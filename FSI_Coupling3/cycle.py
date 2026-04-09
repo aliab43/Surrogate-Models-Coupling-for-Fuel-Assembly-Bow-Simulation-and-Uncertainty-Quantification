@@ -1,63 +1,114 @@
+from pathlib import Path
 
-
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Adjusted time and displacement values for the phases
-time_before_irradiation = [0, 7]  # Time points before irradiation
-displacement_before_irradiation = [0.002, 0.003]  # Non-zero starting displacement for clarity
+BASE_DIR = Path(__file__).resolve().parent
+DEFAULT_OUTPUT = BASE_DIR / "irradiation_example2.png"
 
-# Time for irradiation phase (18 months, 30-day steps)
-num_steps = 18
-step_duration = 30
-time_irradiation = [7 + i * step_duration for i in range(num_steps)]
 
-# Nonlinear trajectory: Overlaying a sine wave on a linear increase
-base_displacement = 0.003  # Starting displacement
-linear_increment_per_step = 0.00005  # Linear increment for reference
-amplitude = 0.0002  # Amplitude of sine wave (controls non-linearity)
-frequency = 2 * np.pi / len(time_irradiation)  # Frequency of sine wave
+def build_cycle_profile():
+    """Build a simple illustrative displacement profile over the reactor cycle."""
+    time_before_irradiation = [0, 7]
+    displacement_before_irradiation = [0.002, 0.003]
 
-displacement_irradiation = [
-    base_displacement + linear_increment_per_step * i + amplitude * np.sin(frequency * i)
-    for i in range(len(time_irradiation))
-]
+    num_steps = 18
+    step_duration = 30
+    time_irradiation = [7 + step_duration * index for index in range(num_steps)]
 
-# Time and displacement for post-irradiation phase
-time_after_irradiation = [time_irradiation[-1], time_irradiation[-1] + 30]
-displacement_after_irradiation = [displacement_irradiation[-1], 0.0028]  # Smooth transition to post-irradiation
+    base_displacement = 0.003
+    linear_increment_per_step = 0.00005
+    amplitude = 0.0002
+    frequency = 2 * np.pi / len(time_irradiation)
 
-# Combine all phases
-time_combined = time_before_irradiation + time_irradiation + time_after_irradiation
-displacement_combined = displacement_before_irradiation + displacement_irradiation + displacement_after_irradiation
+    displacement_irradiation = [
+        base_displacement + linear_increment_per_step * index + amplitude * np.sin(frequency * index)
+        for index in range(len(time_irradiation))
+    ]
 
-# Plotting
-plt.figure(figsize=(16, 10))
-plt.plot(time_combined, displacement_combined, color='b', marker='o', linestyle='-', linewidth=2)
+    time_after_irradiation = [time_irradiation[-1], time_irradiation[-1] + 30]
+    displacement_after_irradiation = [displacement_irradiation[-1], 0.0028]
 
-# Adding annotations
-plt.axvline(x=time_before_irradiation[1], color='crimson', linestyle='--', linewidth=3, label='Power on')
-plt.axvline(x=time_irradiation[-1], color='black', linestyle='--', linewidth=3, label='Power off')
-plt.text(35, 0.0026, "Before Irradiation \n(Including Pump Activation)", color='green', fontsize=20, ha='center')
-plt.text(time_irradiation[num_steps // 2], 0.0032, "Irradiation Phase", color='Red', fontsize=20, ha='center')
-plt.text(time_after_irradiation[1], 0.0031, "After Irradiation \n(Upper plate openning)", color='Blue', fontsize=20, ha='center')
-plt.text(180, 0.0035, "Fh(t)", color='green', fontsize=20, ha='center')
-plt.text(250, 0.0035, "Fh(t+dt)", color='green', fontsize=20, ha='center')
+    time_combined = time_before_irradiation + time_irradiation + time_after_irradiation
+    displacement_combined = (
+        displacement_before_irradiation + displacement_irradiation + displacement_after_irradiation
+    )
+    return time_combined, displacement_combined, time_before_irradiation, time_irradiation, time_after_irradiation
 
-# Labels and title
-plt.xlabel("Time (days)", fontsize=20)
-plt.ylabel("Lateral displacement [m]", fontsize=20)
-plt.title("Evolution of the Lateral Displacement of a Fuel Assembly Grid Over Reactor Cycle", fontsize=20)
 
-# Legend
-plt.legend(fontsize=20)
+def plot_cycle_profile(output_path=DEFAULT_OUTPUT, show=True):
+    """Plot the illustrative cycle profile and save it next to this script by default."""
+    (
+        time_combined,
+        displacement_combined,
+        time_before_irradiation,
+        time_irradiation,
+        time_after_irradiation,
+    ) = build_cycle_profile()
 
-# Display the graph
-plt.grid(True)
-plt.xticks(fontsize=18)  # Adjust the font size for x-axis ticks
-plt.yticks(fontsize=18)  # Adjust the font size for y-axis ticks
-plt.tight_layout()
-plt.savefig("irradiation_example2.png")
-plt.show()
-plt.close()
+    fig, ax = plt.subplots(figsize=(16, 10))
+    ax.plot(time_combined, displacement_combined, color="b", marker="o", linestyle="-", linewidth=2)
 
+    ax.axvline(
+        x=time_before_irradiation[1],
+        color="crimson",
+        linestyle="--",
+        linewidth=3,
+        label="Power on",
+    )
+    ax.axvline(
+        x=time_irradiation[-1],
+        color="black",
+        linestyle="--",
+        linewidth=3,
+        label="Power off",
+    )
+    ax.text(
+        35,
+        0.0026,
+        "Before Irradiation\n(Including Pump Activation)",
+        color="green",
+        fontsize=20,
+        ha="center",
+    )
+    ax.text(
+        time_irradiation[len(time_irradiation) // 2],
+        0.0032,
+        "Irradiation Phase",
+        color="red",
+        fontsize=20,
+        ha="center",
+    )
+    ax.text(
+        time_after_irradiation[1],
+        0.0031,
+        "After Irradiation\n(Upper plate opening)",
+        color="blue",
+        fontsize=20,
+        ha="center",
+    )
+    ax.text(180, 0.0035, "Fh(t)", color="green", fontsize=20, ha="center")
+    ax.text(250, 0.0035, "Fh(t+dt)", color="green", fontsize=20, ha="center")
+
+    ax.set_xlabel("Time (days)", fontsize=20)
+    ax.set_ylabel("Lateral displacement [m]", fontsize=20)
+    ax.set_title(
+        "Evolution of the Lateral Displacement of a Fuel Assembly Grid Over a Reactor Cycle",
+        fontsize=20,
+    )
+    ax.legend(fontsize=20)
+    ax.grid(True)
+    ax.tick_params(axis="x", labelsize=18)
+    ax.tick_params(axis="y", labelsize=18)
+
+    output_path = Path(output_path)
+    fig.tight_layout()
+    fig.savefig(output_path)
+
+    if show:
+        plt.show()
+    plt.close(fig)
+
+
+if __name__ == "__main__":
+    plot_cycle_profile()
