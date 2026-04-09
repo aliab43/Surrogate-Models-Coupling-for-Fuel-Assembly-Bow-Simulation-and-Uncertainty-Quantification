@@ -1,0 +1,32 @@
+# macOS / Python
+.DS_Store
+__pycache__/
+*.pyc
+
+# Local editor / matplotlib cache
+FSI_Coupling3/.vscode/
+FSI_Coupling3/.mplconfig/
+
+# Local secrets
+aliabboud
+aliabboud.pub
+
+# Logs and generated text outputs
+FSI_Coupling3/nohup.out
+FSI_Coupling3/output.txt
+FSI_Coupling3/final.txt
+FSI_Coupling3/displacement_before_irradiation.txt
+FSI_Coupling3/displacement_irradiation.txt
+FSI_Coupling3/displacement_after_irradiation.txt
+FSI_Coupling3/result_of_simulations/
+FSI_Coupling3/iteration_deformation_init/
+
+# Large generated artifacts / data
+*.npy
+*.npz
+
+# If those .C files are generated (kriging exports), ignore them
+FSI_Coupling3/TGaussianProcess_Hydraulic/*.C
+
+# Optionally ignore whole GP training folders if they are huge
+FSI_Coupling3/TGaussianProcess_*/

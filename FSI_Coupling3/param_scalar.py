@@ -1,0 +1,9 @@
+indexHBC =  1
+index_C = 5
+index_S = 7
+index_W = 9
+hl_sensi = 0.02 
+pre_charge_axial = 0.012 
+grid_clamping = 37  
+constant_creep = 1
+constant_growth = 1 
