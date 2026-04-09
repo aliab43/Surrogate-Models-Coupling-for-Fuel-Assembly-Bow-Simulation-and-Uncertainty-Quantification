@@ -24,6 +24,10 @@ This script runs the full cycle:
 
 Outputs are modal coefficients and displacement text files for each phase.
 
+Detailed documentation for the main simulation code lives in:
+
+- `FSI_Coupling3/README.md`
+
 ## How the Coupled Simulation Works
 
 The coupled loop follows a fixed‑point update:
@@ -60,20 +64,26 @@ The irradiation phase also updates **grid clamping** to account for fluence‑de
 - `GridClampingUpdater`
 - Updates grid‑clamping force based on fluence evolution using interpolation.
 
-## Data and DOE Inputs
+## Versioned Inputs vs External Assets
 
-The simulation expects DOE and surrogate data already in the repository:
+This repository versions the code, lightweight reference inputs, and selected figures needed to understand the workflow.
 
-- `FSI_Coupling3/DOE_for_mechanics/` contains:
-  - `Doe_for_mechanics.npy`
-  - `Doe_for_hydraulic.npy`
-- GP model directories:
-  - `FSI_Coupling3/TGaussianProcess_matern12_J7/`
-  - `FSI_Coupling3/TGaussianProcess_matern12_V/`
-  - `FSI_Coupling3/TGaussianProcess_matern12_J41/`
-  - `FSI_Coupling3/TGaussianProcess_Hydraulic/`
+Files currently versioned for the main FSI workflow include:
 
-If you regenerate DOE or surrogates, update these folders before running the cycle.
+- `FSI_Coupling3/DOE_for_mechanics/Doe_for_surrogate.txt`
+- `FSI_Coupling3/Matrix_M_N.dat`
+- `FSI_Coupling3/Matrix_M_N.root`
+
+The full production run also expects large local assets that are **not** versioned in Git:
+
+- `Doe_for_mechanics.npy`
+- `Doe_for_hydraulic.npy`
+- `TGaussianProcess_matern12_J7/`
+- `TGaussianProcess_matern12_V/`
+- `TGaussianProcess_matern12_J41/`
+- `TGaussianProcess_Hydraulic/`
+
+If you want to run the complete coupled simulation, you must provide those surrogate assets locally under `FSI_Coupling3/`.
 
 ## Data Availability Note
 
@@ -93,14 +103,21 @@ Main outputs:
 - `FSI_Coupling3/displacement_irradiation.txt`
 - `FSI_Coupling3/displacement_after_irradiation.txt`
 
-## Standalone Benchmark Subproject
+These run outputs, along with temporary folders such as `FSI_Coupling3/result_of_simulations/` and `FSI_Coupling3/iteration_deformation_init/`, are generated locally and intentionally ignored by Git.
 
-The analytical validation benchmark has been separated from the main FSI workflow into its own folder:
+## Repository Scope
+
+The repository contains:
+
+- `FSI_Coupling3/`: the main fuel-assembly coupling codebase.
+- `analytical_benchmark/`: a companion validation study for the uncertainty methodology.
+
+The analytical validation benchmark is intentionally isolated from the main FSI workflow:
 
 - `analytical_benchmark/Analytical_Benchmark_Coupled_GP_Validation.py`
 - `analytical_benchmark/README.md`
 
-This benchmark is standalone and can be published as an independent GitHub repository without depending on `FSI_Coupling3/`.
+This benchmark is standalone and can be published as an independent GitHub repository without depending on `FSI_Coupling3/`. If you want the strongest possible portfolio presentation, splitting it into a second repository would make the project boundaries even clearer.
 
 ## Repository Structure
 
